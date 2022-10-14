@@ -1,0 +1,35 @@
+<%- include ('../../partials/head') %>
+<%- include ('../../partials/navbar') %>
+<div class="container">
+    <br>
+    <h1>Artigos</h1>
+    <br>
+    <a class="btn btn-success" href="/admin/articles/new">Criar novo artigo</a>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Slug</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            
+        </tbody>
+    </table>
+</div>
+<%- include ('../../partials/end') %>
+<script>
+    function deletionConfirmation (event, form){
+        event.preventDefault()
+        let decision = confirm("Você realmente deseja deletar essa categoria?") //retorna true or false
+        if(decision){
+            form.submit();
+        }
+
+    }
+</script>
