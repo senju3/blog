@@ -25,10 +25,26 @@ app.set('view engine', 'ejs');
 
 //ROTAS GET
 app.get("/", (req, res) => {
-    res.render('index')
+    Article.findAll({
+        order: [['id', 'DESC']]
+    }).then(articles => {
+        res.render('index', {articles: articles});
+    });  
+});
+app.get("/:slug", (req, res) => {
+    let slug = req.params.slug;
+
+    Article.findOne({
+        where: {
+            slug: slug
+        }
+    }).then(article => {
+        res.render('article', {article: article});
+    });  
 });
 app.use("/", ArticleController);
 app.use("/", CategoryController);
+
 //STATIC
 app.use(express.static('public'));
 

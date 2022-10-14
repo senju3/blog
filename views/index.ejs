@@ -1,6 +1,27 @@
 <%- include ('partials/head') %>
-<%- include ('partials/navbar') %>
-<body>
-    <h1>Olá seja Bem vindo a página inicial da aplicação!</h1>
-</body>
+<%- include ('partials/homenavbar') %>
+<div class="container">
+    <hr>
+        <div class="jumbotron">
+            <h1 class="display-4">Olá, seja bem vindo ao blog!</h1>
+            <p class="lead">Este é o blog que você tão esperou em conhecer.</p>
+            <hr class="my-4">
+            <p>Aqui no blog você vai poder encontrar tudo que possa te ajudar de formar positiva para o seu crescimento e sua jornada!</p>
+            <p>Desde alimentação à estratégias de trading, tudo aqui no blog</p>
+            <p>E você pode interagir e ainda receber por postagens verificadas e liberadas para serem publicadas</p><br>
+        </div>
+    <hr>
+
+    <% articles.forEach(article => { %>
+        <div class="card">
+            <div class="card-header">
+                <h2><%= article.title %></h2>
+            </div>
+            <div class="card-body">
+                <a href="/<%= article.slug %>" class="btn btn-primary">Ler artigo</a>
+            </div>
+        </div>
+        <br>
+    <% }) %>
+</div>
 <%- include ('partials/end') %>

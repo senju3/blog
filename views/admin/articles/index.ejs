@@ -18,6 +18,20 @@
         </thead>
         <tbody>
             
+            <% articles.forEach(article => { %>
+                <tr>
+                    <td><%= article.id %></td>
+                    <td><%= article.title %></td>
+                    <td><%= article.slug %></td>
+                    <td><%= article.category.title %></td>
+                    <td>
+                        <form action="/articles/delete" method="post" onsubmit="deletionConfirmation(event, this)" style="display: inline;">
+                            <input type="hidden" name="id" value="<%= article.id %>">
+                            <button class="btn btn-danger">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
             
         </tbody>
     </table>
@@ -26,7 +40,7 @@
 <script>
     function deletionConfirmation (event, form){
         event.preventDefault()
-        let decision = confirm("Você realmente deseja deletar essa categoria?") //retorna true or false
+        let decision = confirm("Você realmente deseja deletar esse artigo?") //retorna true or false
         if(decision){
             form.submit();
         }
