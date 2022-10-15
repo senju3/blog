@@ -26,9 +26,12 @@ app.set('view engine', 'ejs');
 //ROTAS GET
 app.get("/", (req, res) => {
     Article.findAll({
-        order: [['id', 'DESC']]
+        order: [['id', 'DESC']],
+        limit: 4
     }).then(articles => {
-        res.render('index', {articles: articles});
+        Category.findAll().then(categories => {
+            res.render('index', {articles: articles, categories: categories});
+        });
     });  
 });
 app.get("/:slug", (req, res) => {
@@ -39,7 +42,34 @@ app.get("/:slug", (req, res) => {
             slug: slug
         }
     }).then(article => {
-        res.render('article', {article: article});
+        if(article != undefined){
+            Category.findAll().then(categories => {
+                res.render('article', {article: article, categories: categories});
+            });
+        }else {
+            res.redirect('/')
+        }
+    }).catch(error => {
+        res.redirect('/')
+    });  
+});
+app.get("/category/:slug", (req, res) => {
+    let slug = req.params.slug;
+
+    Category.findOne({
+        where: {
+            slug: slug
+        }, include: [{model: Article}]
+    }).then(category => {
+        if(category != undefined){
+            Category.findAll().then(categories => {
+                res.render('index', {articles: category.articles, categories: categories});
+            });
+        }else {
+            res.redirect('/')
+        }
+    }).catch(error => {
+        res.redirect('/')
     });  
 });
 app.use("/", ArticleController);
