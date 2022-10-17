@@ -1,0 +1,20 @@
+<%- include ('../../partials/head') %>
+
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h2>login</h2>
+        </div>
+        <div class="card-body">
+            <form action="/authenticate" method="post">
+                <label for="email">Informe seu e-mail cadastrado</label><br>
+                <input class="form-control" name="email" type="text"><br>
+                <label for="password">Digite sua senha</label><br>
+                <input class="form-control" type="password" name="password"><br>
+                <button class="btn btn-primary" type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/end') %>

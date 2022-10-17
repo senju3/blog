@@ -1,16 +1,28 @@
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const connection = require('./databases/connection');
 
 const ArticleController = require('./articles/ArticleController')
-const CategoryController = require('./categories/CategoryController')
+const CategoryController = require('./categories/CategoryController');
+const UserController = require('./users/UsersController');
+
+
 const Article = require('./articles/Article');
-const Category = require('./categories/Category')
+const Category = require('./categories/Category');
+const User = require('./users/User');
 
 //BODY PARSER
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+
+//SESSION
+app.use(session({
+    secret: 'asdfserfse', cookie: {maxAge: 3000000}, resave: true, saveUninitialized: true
+}))
+
 
 //DATABASES
 connection.authenticate().then(() => {
@@ -72,11 +84,15 @@ app.get("/category/:slug", (req, res) => {
         res.redirect('/')
     });  
 });
+                                            // LISTAGEM DE DEFINIÇÃO DE USO DOS CONTROLLERS
 app.use("/", ArticleController);
 app.use("/", CategoryController);
+app.use("/", UserController);
 
 //STATIC
 app.use(express.static('public'));
+
+
 
 //SERVIDOR
 app.listen(8080, error => {
